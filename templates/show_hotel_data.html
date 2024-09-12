@@ -1,0 +1,48 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Django Paginator example</title>
+</head>
+<body>
+    <div class="container">
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>Ratings</th>
+                <th>Total Reviews</th>
+                <th>Price (incl tax)</th>
+                <th>Location</th>
+                <th>City and Country</th>
+                <th>URL</th>
+            </tr>
+            {% for hotel in hotels.object_list %}
+<!--              {# note that the list of posts are in the page_obj.object_list not page_obj #}-->
+            <tr>
+                <td>{{hotel.hotel_name}}</td>
+                <td>{{hotel.rating}}</td>
+                <td>{{hotel.hotel_review}}</td>
+                <td>{{hotel.price_incl_tax}}</td>
+                <td>{{hotel.location}}</td>
+                <td>{{hotel.city_and_country}}</td>
+                <td><a href="{{hotel.hotel_url}}" target="_blank">Details</a></td>
+            </tr>
+             {% endfor %}
+        </table>
+
+    </div>
+    <div>
+        {%if hotels.has_previous %} {# whether the previous page exists #}
+            <a href="?page={{hotels.previous_page_number}}"><</a> {# link to the prev page #}
+        {% endif %}
+        <span>{{hotels.number}}</span> {# the current page number #}
+
+        {%if hotels.has_next %} {# whether the next page exists #}
+            <a href="?page={{hotels.next_page_number}}">></a> {# link to the next page #}
+        {% endif %}
+    </div>
+</body>
+</html>
